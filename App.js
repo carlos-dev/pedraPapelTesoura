@@ -75,15 +75,29 @@ export default class App extends Component {
       <View style={styles.container}>
         
         <Topo></Topo>
-        <View></View>
+        
+        <View style={styles.main} >
+          <View style={styles.btn} >
+            <Button title="pedra" onPress={() => {this.jokenpo('pedra')}} />
+          </View>
+          
+          <View style={styles.btn}>
+            <Button title="papel" onPress={() => {this.jokenpo('papel')}} />
+          </View>
 
-        <View></View>
-        <Text>Escolha do computador {this.state.escolhaComputador}</Text>
-        <Text>Escolha do usuário:  {this.state.escolhaUsuario}</Text>
-        <Text>Resultado {this.state.resultado}</Text>
-        <Button title="pedra" onPress={() => {this.jokenpo('pedra')}} />
-        <Button title="papel" onPress={() => {this.jokenpo('papel')}} />
-        <Button title="tesoura" onPress={() => {this.jokenpo('tesoura')}} />
+          <View style={styles.btn}>
+            <Button title="tesoura" onPress={() => {this.jokenpo('tesoura')}} />
+          </View>
+        </View>
+
+        <View style={styles.palco}>
+          <Icone escolha={this.state.escolhaComputador} jogador='computador'></Icone>
+          <Icone escolha={this.state.escolhaUsuario} jogador='usuário'></Icone>
+       
+
+          <Text style={styles.result}>{this.state.resultado}</Text>
+        </View>
+        
       </View>
     );
   }
@@ -99,8 +113,53 @@ class Topo extends Component {
   }
 }
 
+class Icone extends Component {
+  render() {
+    if(this.props.escolha ==  'pedra') {
+      return (
+        <View>
+          <Text>{this.props.escolha}</Text>
+          <Image source={require('./assets/pedra.png')} />
+        </View>
+      )
+    } else if (this.props.escolha ==  'papel') {
+      return (
+        <View>
+          <Text>{this.props.escolha}</Text>
+          <Image source={require('./assets/papel.png')} />
+        </View>
+      )
+    } else if (this.props.escolha ==  'tesoura') {
+      return (
+        <View>
+          <Text>{this.props.escolha}</Text>
+          <Image source={require('./assets/tesoura.png')} />
+        </View>
+      )
+    } else {
+      return false;
+    }
+  }
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  main: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 20
+  },
+  btn: {
+    width: 90
+  },
+  palco: {
+    alignItems: 'center'
+  },
+  result: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#437d66'
+  }
 });
